@@ -1,5 +1,5 @@
 public class Card {
-    String suite; // heart, diamond, club, spade
+    String suite; // heart, diamond, club, spades
     int value; // Ace = 1, 1-12
     int gameValue; // baccarat value (Jack, Queen, King = 10) the rest match value
 
