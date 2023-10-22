@@ -33,19 +33,33 @@ public class BaccaratGame extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// display start screen
 
+		// if the user presses options, then display options dropdown
+			// if user presses end game, end the program
+			// if the user presses reset, then reset to bet screen
+
 		// display bet screen (includes blank cards and total winnings)
 			// wait for user bet
 			// save user bet and proceed
 			// update the text box
 
-		// tranisiton the cards being dealt, first player then dealer 2 times
+		// transition the cards being dealt, first player then dealer 2 times
+			// update the text box as the cards are dealt
 
-		// pause at screen with 2 cards in the player and dealer hands and update the text
+		// pause at screen with 2 cards in the player and dealer hands
+			// check for a natural win
+			// if yes
+				// display game result message and user winnings/losings
 
+		// check if the player needs to hit
+			// if yes then deal the user card and transition to 3 player hand screen
+			// update the text box
 
+		// check if the dealer needs to hit
+			// transition to a 3 card hand to both screen
+			// update the text box
 
-
-
+		// compare hands and determine the winner of the round
+			// display game result message and user winnings/losings
 
 
 		// TODO Auto-generated method stub
