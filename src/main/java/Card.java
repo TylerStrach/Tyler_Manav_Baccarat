@@ -6,7 +6,7 @@ public class Card {
     public Card(String theSuite, int theValue){
         suite = theSuite;
         value = theValue;
-        if(value < 13 && value > 9){
+        if(value <= 13 && value >= 10){
             gameValue = 10;
         }
         else{

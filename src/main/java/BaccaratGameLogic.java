@@ -2,11 +2,11 @@
 import java.util.ArrayList;
 
 public class BaccaratGameLogic {
-    String ptString = "Player Total: ";
-    String dtString = "Dealer Total: ";
-    String pwString = "Player wins!";
-    String dwString = "Dealer wins!";
-    String drawString = "Its a Draw!";
+    static String ptString = "Player Total: ";
+    static String dtString = "Dealer Total: ";
+    static String pwString = "Player wins!";
+    static String dwString = "Dealer wins!";
+    static String drawString = "Its a Draw!";
 
     // will evaluate 2 hands and return a string based on the winner
     // "player", "banker", or "draw"
