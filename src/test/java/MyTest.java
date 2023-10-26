@@ -1,24 +1,27 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import org.junit.jupiter.api.DisplayName;
-
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class MyTest {
-	static BaccaratGameLogic logic = new BaccaratGameLogic();
-	static BaccaratDealer dealer = new BaccaratDealer();
+	static BaccaratGameLogic logic;
+	static BaccaratDealer dealer;
 
-	static ArrayList<Card> hand1 = new ArrayList<>(List.of(new Card("heart", 3),
-			new Card("spade", 12), new Card("heart", 6)));
-	static ArrayList<Card> hand2 = new ArrayList<>(List.of(new Card("diamond", 10),
-			new Card("club", 1)));
+	static ArrayList<Card> hand1;
+	static ArrayList<Card> hand2;
 
+	@BeforeEach
+	void init(){
+		logic = new BaccaratGameLogic();
+		dealer = new BaccaratDealer();
+		hand1 = new ArrayList<>(List.of(new Card("heart", 3),
+				new Card("spade", 12), new Card("heart", 6)));
+		hand2 = new ArrayList<>(List.of(new Card("diamond", 10),
+				new Card("club", 1)));
+	}
 	@Test
 	void cardConstructorTest() {
 		Card myCard = new Card("heart", 13);
@@ -124,6 +127,60 @@ class MyTest {
 
 	@Test
 	void baccaratGameLogicEvaluateBankerDrawTest(){
-		//TODO tmrw
+		ArrayList<Card> bankerHand3 = new ArrayList<>(); // banker hand of 3
+		bankerHand3.add(new Card("heart", 1));
+		bankerHand3.add(new Card("diamond", 2));
+
+		ArrayList<Card> bankerHand4 = new ArrayList<>(); // banker hand of 4
+		bankerHand4.add(new Card("club", 2));
+		bankerHand4.add(new Card("heart", 2));
+
+		ArrayList<Card> bankerHand5 = new ArrayList<>(); // banker hand of 5
+		bankerHand5.add(new Card("club", 1));
+		bankerHand5.add(new Card("spade", 4));
+
+		ArrayList<Card> bankerHand6 = new ArrayList<>(); // banker hand of 6
+		bankerHand6.add(new Card("heart", 3));
+		bankerHand6.add(new Card("club", 3));
+
+		ArrayList<Card> bankerHand7 = new ArrayList<>(); // banker hand of 7
+		bankerHand7.add(new Card("heart", 2));
+		bankerHand7.add(new Card("club", 5));
+
+		// if the player didnt draw a card
+		assertFalse(logic.evaluateBankerDraw(hand1, null), "error on test with no player draw");
+
+		// if banker total is < 3
+		assertTrue(logic.evaluateBankerDraw(hand2, new Card("club", 6)),
+				"error on test with < 3 bankerTotal and any player card");
+
+		// if bankerTotal is 3
+		assertTrue(logic.evaluateBankerDraw(bankerHand3, new Card("heart", 6)),
+				"error on test with bankerTotal 3 and player card 6");
+		assertFalse(logic.evaluateBankerDraw(bankerHand3, new Card("heart", 8)),
+				"error on test with bankerTotal 3 and player card 8");
+
+		// if bankerTotal is 4
+		assertTrue(logic.evaluateBankerDraw(bankerHand4, new Card("diamond", 2)),
+				"error on test with bankerTotal 4 and player card 2");
+		assertFalse(logic.evaluateBankerDraw(bankerHand4, new Card("spade", 1)),
+				"error on test with bankerTotal 4 and player card 1");
+
+		// if bankerTotal is 5
+		assertTrue(logic.evaluateBankerDraw(bankerHand5, new Card("club", 5)),
+				"error on test with bankerTotal 5 and player card 5");
+		assertFalse(logic.evaluateBankerDraw(bankerHand5, new Card("club", 8)),
+				"error on test with bankerTotal 5 and player card 8");
+
+		// if bankerTotal is 6
+		assertTrue(logic.evaluateBankerDraw(bankerHand6, new Card("club", 7)),
+				"error on test with bankerTotal 6 and player card 7");
+		assertFalse(logic.evaluateBankerDraw(bankerHand6, new Card("club", 8)),
+				"error on test with bankerTotal 6 and player card 4");
+
+		// if bankerTotal is 7
+		assertFalse(logic.evaluateBankerDraw(bankerHand7, new Card("club", 8)),
+				"error on test with bankerTotal 7 and player card 8");
+
 	}
 }
