@@ -11,6 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 class MyTest {
+	static BaccaratGameLogic logic = new BaccaratGameLogic();
+	static BaccaratDealer dealer = new BaccaratDealer();
+
+	static ArrayList<Card> hand1 = new ArrayList<>(List.of(new Card("heart", 3),
+			new Card("spade", 12), new Card("heart", 6)));
+	static ArrayList<Card> hand2 = new ArrayList<>(List.of(new Card("diamond", 10),
+			new Card("club", 1)));
 
 	@Test
 	void cardConstructorTest() {
@@ -21,13 +28,11 @@ class MyTest {
 
 	@Test
 	void baccaratDealerConstructorTest() {
-		BaccaratDealer dealer = new BaccaratDealer();
 		assertNotNull(dealer, "error dealer constructor");
 	}
 
 	@Test
 	void baccaratDealerGenerateDeckTest1(){
-		BaccaratDealer dealer = new BaccaratDealer();
 		dealer.generateDeck();
 		assertEquals(52, dealer.deck.size(), "error on dealer deck size");
 
@@ -50,13 +55,11 @@ class MyTest {
 
 	@Test
 	void baccaratDealerDeckSizeTest(){
-		BaccaratDealer dealer = new BaccaratDealer();
 		assertEquals(52, dealer.deckSize(), "error on decksize()");
 	}
 
 	@Test
-	void baccaratDealershuffleDeckTest(){
-		BaccaratDealer dealer = new BaccaratDealer();
+	void baccaratDealerShuffleDeckTest(){
 		dealer.shuffleDeck();
 		assertEquals(52, dealer.deckSize(), "error on shuffle deck size");
 		ArrayList<Card> shuffleDeck1 = dealer.deck;
@@ -70,7 +73,6 @@ class MyTest {
 
 	@Test
 	void baccaratDealerDrawOneTest(){
-		BaccaratDealer dealer = new BaccaratDealer();
 		Card myCard = dealer.drawOne();
 		Card myCard2 = dealer.drawOne();
 
@@ -82,7 +84,6 @@ class MyTest {
 
 	@Test
 	void baccaratDealerDealHandTest(){
-		BaccaratDealer dealer = new BaccaratDealer();
 		ArrayList<Card> hand1 = dealer.dealHand();
 
 		assertEquals(2, hand1.size(), "first hand size error");
@@ -92,8 +93,37 @@ class MyTest {
 
 		assertEquals(48, dealer.deckSize(), "deck size error on dealHand2");
 
-
 		assertNotNull(hand2.get(0), "Card error on dealHand");
 		assertNotNull(hand2.get(1), "Card error on dealHand");
+	}
+
+	@Test
+	void baccaratGameLogicWhoWonTest(){
+		ArrayList<Card> emptyHand = new ArrayList<>();
+
+		assertEquals("draw", logic.whoWon(emptyHand, emptyHand), "error on draw btwn empty hands");
+		assertEquals("player", logic.whoWon(hand1, emptyHand), "error on player win against empty");
+		assertEquals("dealer", logic.whoWon(emptyHand, hand2), "error on dealer win against empty");
+		assertEquals("player", logic.whoWon(hand1, hand2), "error on player win against dealer");
+	}
+
+	@Test
+	void baccaratGameLogicHandTotalTest(){
+		ArrayList<Card> emptyHand = new ArrayList<>();
+		assertEquals(0, logic.handTotal(emptyHand), "error on empty hand total");
+
+		assertEquals(9, logic.handTotal(hand1), "error on 2 card hand total");
+		assertEquals(1, logic.handTotal(hand2), "error on 3 card hand total");
+	}
+
+	@Test
+	void baccaratGameLogicEvaluatePlayerDrawTest(){
+		assertFalse(logic.evaluatePlayerDraw(hand1));
+		assertTrue(logic.evaluatePlayerDraw(hand2));
+	}
+
+	@Test
+	void baccaratGameLogicEvaluateBankerDrawTest(){
+		//TODO tmrw
 	}
 }
